@@ -47,7 +47,9 @@
 	    "http://search.twitter.com/",
 	    "http://amsterdam.last.fm",
 	    "http://ws.audioscrobbler.com/",
-	    "http://developer.echonest.com"
+	    "http://developer.echonest.com",
+	    "http://festivalify.se",
+	    "http://festivalify.se:5984"
 	],
 	"SupportedLanguages": [
 		"en"
