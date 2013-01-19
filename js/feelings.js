@@ -3,20 +3,51 @@ var models = sp.require('sp://import/scripts/api/models');
 var player = models.player;
 var session = models.session;
 
-models.player.observe(models.EVENT.CHANGE, function(event) {
-	console.log("Something changed!");
+models.player.observe(models.EVENT.CHANGE, function(e) {
+	if(e.type = 'playerStateChanged') {
+		var pos = player.position;
+		var duration = player.track.data.duration;
+		var duration_p = 100 / duration;
+		var position_p = 100 / pos;
+		current_p = Math.round(((duration_p / position_p) * 100 *0.85)*100)/100;
+		var tt = player.track.data.uri;
+		var text = tt;
+	 	var fixed;
+	    fixed = text.replace(/\bspotify:track:/, "");
+	 
+	 	CorrectQueue(pos / 1000);
+	}
 });
+
+function CorrectQueue(time) {
+	currentObj = 0;
+	for(var i = 0; i < objqueue.length; i++) {
+		if(objqueue[i].time - objqueue[i].duration < time) {
+			currentObj = i;
+		} else {
+			break;
+		}
+	}
+}
 
 var output = $("#output");
 
-var objqueue = new Queue();
+var objqueue = [];
+var currentObj = 0;
+
+function reset() {
+	objqueue = [];
+	currentObj = 0;
+	output.empty();
+}
 
 function Drawable() {
-	this.id = '#id'
+	this.id = 'id'
 	this.x = 0;
 	this.y = 0;
 	this.easeType = 'linear';
 	this.duration = 1;
+	this.length = 1;
 	this.time = 0;
 	this.renderobject = null;
 }
@@ -52,22 +83,35 @@ function loadQueue() {
 	var drawable = new Drawable();
 	
 	drawable.renderobject = new TextRenderObject("Hello world");
-	drawable.x = 150;
-	drawable.y = 150;
+	drawable.x = 50;
+	drawable.y = 50;
 	drawable.time = 5;
 	drawable.id = "derp";
 	
-	objqueue.enqueue(drawable);
+	objqueue.push(drawable);
 	
 	drawable = new Drawable();
 	
-	drawable.renderobject = new ImageRenderObject('http://www.dn.se/Images/image/22/54/381460.jpg');
-	drawable.x = 200;
-	drawable.y = 200;
+	drawable.renderobject = new ImageRenderObject('/images/381460.jpeg');
+	drawable.x = 10;
+	drawable.y = 15;
 	drawable.time = 10;
 	drawable.id = "img";
+	drawable.easeType = 'quadIn';
 	
-	objqueue.enqueue(drawable);	
+	objqueue.push(drawable);	
+	
+	
+	drawable = new Drawable();
+	
+	drawable.renderobject = new ImageRenderObject('images/dwid.gif');
+	drawable.x = 30;
+	drawable.y = 30;
+	drawable.time = 15;
+	drawable.length = 5;
+	drawable.id = "dwit";
+	
+	objqueue.push(drawable);
 	
 	
 }
@@ -76,18 +120,21 @@ $(document).ready(function() {
 	init();
 	$('#btnplay').click(function () {
 		
-		var easeType = $("#easingType").val();
-		addOpacityTween('#label1', 0, 1, easeType, 10, 10);
-		addOpacityTween('#label2', 5, 2, easeType, 100, 150);
+		//var easeType = $("#easingType").val();
+		//addOpacityTween('#label1', 0, 1, easeType, 10, 10);
+		//addOpacityTween('#label2', 5, 2, easeType, 100, 150);
+		
+		reset();
+		loadQueue();
 		
 		var t = player.track;
+		player.playing = false;
+		player.position = 0;
 		player.play(t);
-		$.play();
 	});	
 });
 
 function init() {
-	loadQueue();
 	setInterval(timelineCallback, 1000);
 }
 
@@ -97,34 +144,44 @@ function timelineCallback() {
 	var pos = player.position;
 	var time = pos / 1000;
 	
-	while(!objqueue.isEmpty() && (time >= (objqueue.peek().time - objqueue.peek().duration))) {
-		var obj = objqueue.dequeue();
-		console.log("Object dequeued");
-		obj.renderobject.addToOutput(obj.id);
-		addOpacityTween(obj.id, obj.duration, obj.duration, obj.easeType, obj.x, obj.y);
+	while(objqueue[currentObj] && (time >= (objqueue[currentObj].time - objqueue[currentObj].duration))) {
+		var obj = objqueue[currentObj];
+		currentObj = currentObj + 1;
 		
-		$.play();
+		addObject(obj);
+		
 	}
 }
+function addObject(obj) {
+	obj.renderobject.addToOutput(obj.id);
+	$('#'+obj.id).css('left', obj.x + "%").css('top', obj.y + "%")
+		.fadeTo(0,0,"linear", function() {
+			$('#'+obj.id).fadeTo(obj.duration*1000, 1, "linear", function() {
+			setTimeout(function(){
+  				$('#' + obj.id).fadeTo(obj.duration*1000, 0, "linear", function() {
+  					$('#' + obj.id).remove();
+  				});
+			}, obj.length*1000);
+		})});
+}
 
-function addOpacityTween(target, time, duration, easeType, x, y) {
-	$('#'+target).css('left', x).css('top', y);
+function addOpacityTween(obj) {
 	
-	$('#'+target).tween({
+	$('#'+obj.id).tween({
 		opacity: {
 			start: 0,
 			stop: 100,
 			time: 0,
-			duration: duration,
-			effect: easeType
+			duration: obj.duration,
+			effect: obj.easeType
 		}
 	}).tween({
 		opacity: {
 			start: 100,
 			stop: 0,
-			time: time + duration,
-			duration: duration,
-			effect: easeType
+			time: obj.length + obj.duration,
+			duration: obj.duration,
+			effect: obj.easeType
 		}
 	});
 }
