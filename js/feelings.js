@@ -165,23 +165,3 @@ function addObject(obj) {
 		})});
 }
 
-function addOpacityTween(obj) {
-	
-	$('#'+obj.id).tween({
-		opacity: {
-			start: 0,
-			stop: 100,
-			time: 0,
-			duration: obj.duration,
-			effect: obj.easeType
-		}
-	}).tween({
-		opacity: {
-			start: 100,
-			stop: 0,
-			time: obj.length + obj.duration,
-			duration: obj.duration,
-			effect: obj.easeType
-		}
-	});
-}
