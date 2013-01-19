@@ -12,14 +12,10 @@ function loadDataFromCouch(trackid) {
 	}); 
 }
 
-function addEventToCouch(trackid, x, y, easeType, duration, length, time, data, type,) {
+function addEventToCouch(trackid, x, y, easeType, duration, length, time, data, type) {
 	
 	var url = 'http://festivalify.se:5984/feelings/';
-	
-	$.ajax({
-	  type: "POST",
-	  url: url,
-	  data: {
+	var object = {
    		"track_id": trackid,
    		"x": x,
    		"y": y,
@@ -30,10 +26,27 @@ function addEventToCouch(trackid, x, y, easeType, duration, length, time, data, 
    		"data": data,
    		"type": type,
    		"user_id": null
-	},
-	  dataType: "json"
-	});
+	};
 	
+	$.ajax({
+	  url: url,
+	  type: "POST",
+	  dataType: "json",
+	  contentType: "application/json",
+	  data: JSON.stringify(object),
+
+	  complete: function() {
+	    //called when complete
+	  },
+
+	  success: function() {
+	    //called when successful
+	 },
+
+	  error: function() {
+	    //called when there is an error
+	  },
+	});
 	
 }
 
@@ -171,6 +184,16 @@ $(document).ready(function() {
 		player.playing = false;
 		player.position = 0;
 		player.play(t);
+	});	
+	
+	
+	$('#test_post').click(function () {
+		var tt = player.track.data.uri;
+		var text = tt;
+	 	var fixed;
+	    fixed = text.replace(/\bspotify:track:/, "");
+	 
+		addEventToCouch(fixed, 0, 0, "linear", 1, 1, 1, "lol", "text");
 	});	
 });
 
