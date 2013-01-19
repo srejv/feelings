@@ -23,7 +23,6 @@ function loadDataFromCouch(trackid) {
 }
 
 
-// imgur api: 75e600ffae7109a47b3c2130ef80073f
 function createEvent(row) {
 	var d = new Drawable();
 	d.id = row._id; // random unique identifier, doesn't matter
@@ -220,6 +219,34 @@ function addObject(obj) {
   				});
 			}, obj.length*1000);
 		})});
+}
+
+// imgur api: 75e600ffae7109a47b3c2130ef80073f
+function uploadToImgur(url) {
+	
+    // open the popup in the click handler so it will not be blocked
+    var w = window.open();
+    w.document.write('Uploading...');
+    // upload to imgur using jquery/CORS
+    // https://developer.mozilla.org/En/HTTP_access_control
+    $.ajax({
+        url: 'https://api.imgur.com/3/image',
+        type: 'POST',
+        data: {
+            type: 'url',
+            // get your key here, quick and fast http://imgur.com/register/api_anon
+            key: '75e600ffae7109a47b3c2130ef80073f',
+            name: url,
+            image: url
+        },
+        dataType: 'json'
+    }).success(function(data) {
+        w.location.href = data['upload']['links']['imgur_page'];
+    }).error(function() {
+        alert('Could not reach api.imgur.com. Sorry :(');
+        w.close();
+    });
+
 }
 
 /*
