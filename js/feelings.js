@@ -156,7 +156,6 @@ function init() {
 }
 
 function timelineCallback() {
-	console.log("timeline callback");
 
 	var pos = player.position;
 	var time = pos / 1000;
