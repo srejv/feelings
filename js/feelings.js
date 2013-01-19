@@ -32,7 +32,7 @@ function createEvent(row) {
 	d.duration = row.duration;
 	d.length = row.length;
 	d.time = row.time;
-	
+	console.log(row.event);
 	if(row.event.type == 'image') {
 		d.renderobject = new ImageRenderObject(row.event.url);
 	} else if(row.event.type == 'text') {
@@ -195,12 +195,18 @@ $(document).ready(function() {
 	
 	
 	$('#test_post').click(function () {
+		/*
 		var tt = player.track.data.uri;
 		var text = tt;
 	 	var fixed;
 	    fixed = text.replace(/\bspotify:track:/, "");
 	 
 		addEventToCouch(fixed, 0, 0, "linear", 1, 1, 1, "lol", "text");
+		*/
+		
+		animateBackground("#FF00FF");
+		
+		
 	});	
 });
 
@@ -333,9 +339,10 @@ function uploadURLToImgur(url) {
 }
 
 function animateBackground(color) {
-	$(document.body).animate({ 
-		backgroundColor:color
-	}, 1000); 
+	//console.log("jens");
+	$("#color").css("background-color", color);
+	$("#color").fadeIn("slow");
+	
 }
 
 /*

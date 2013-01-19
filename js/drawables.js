@@ -43,4 +43,7 @@ function ImageRenderObject(imgurl) {
 function BackgroundRenderObject(color){
 	this.color = color;
 	this.type = "background";
+	this.addToOutput = function(pid) {
+
+	}
 }
