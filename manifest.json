@@ -65,7 +65,8 @@
 	    "http://festivalify.se",
 		"http://festivalify.se:1337",
 		"http://festivalify.se:1338",
-	    "http://festivalify.se:5984"
+	    "http://festivalify.se:5984",
+		"http://imgur.com/"
 	],
 	"SupportedLanguages": [
 		"en"
