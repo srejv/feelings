@@ -32,7 +32,6 @@ function createEvent(row) {
 	d.duration = row.duration;
 	d.length = row.length;
 	d.time = row.time;
-	console.log(row.event);
 	if(row.event.type == 'image') {
 		d.renderobject = new ImageRenderObject(row.event.url);
 	} else if(row.event.type == 'text') {
@@ -226,6 +225,7 @@ function timelineCallback() {
 		if(obj.type != "background") {
 			addObject(obj);
 		} else {
+			console.log("tjj");
 			animateBackground(obj.color);
 		}
 		
@@ -351,7 +351,6 @@ function uploadURLToImgur(url) {
 }
 
 function animateBackground(color) {
-	//console.log("jens");
 	$("#color").css("background-color", color);
 	$("#color").fadeIn("slow");
 	
@@ -361,6 +360,7 @@ function animateBackground(color) {
 
            _     ___   ___  _  __     _  _____   __  ____   __         
           | |   / _ \ / _ \| |/ /    / \|_   _| |  \/  \ \ / /         
+		   
           | |  | | | | | | | ' /    / _ \ | |   | |\/| |\ V /          
           | |__| |_| | |_| | . \   / ___ \| |   | |  | | | |           
           |_____\___/ \___/|_|\_\ /_/   \_\_|   |_|  |_| |_|           
