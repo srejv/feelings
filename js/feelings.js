@@ -6,10 +6,9 @@ var session = models.session;
 function loadDataFromCouch(trackid) {
 
 	var url = 'http://festivalify.se:5984/feelings/_design/event/_view/all?startkey=["'+trackid+'",0.0]&endkey=["'+trackid+'","kebab"]'
-	$jQuery.getJSON(url,
+	$.getJSON(url,
 		function(data) {
-		
-			console.log("derp");	
+			console.log(data);
 	
 	}); 
 
