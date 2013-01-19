@@ -11,12 +11,20 @@
 	"BundleIdentifier": "feeling",
 	"BundleType": "Application",
 	"BundleVersion": "0.1",
-	"AcceptedViewDropTypes": [
+	"AcceptedLinkTypes": [
+		"album",
+		"artist",
+		"track",
+		"playlist",
+		"user"
+	],
+	"AcceptedViewDropType": [
 			"image",
-			"jpg",
-			"png",
-			"jpeg"
-		],
+			".jpg",
+			".png",
+			".jpeg",
+			"text"
+	],
 	"DefaultTabs": [
 		{
 			"arguments": "index",

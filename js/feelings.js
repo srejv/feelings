@@ -227,6 +227,38 @@ function addObject(obj) {
 		})});
 }
 
+var drop = document.querySelector('#friend-drop');
+
+drop.addEventListener('dragenter', handleDragEnter, false);
+drop.addEventListener('dragover', handleDragOver, false);
+drop.addEventListener('dragleave', handleDragLeave, false);
+drop.addEventListener('drop', handleDrop, false);
+
+function handleDragEnter(e) {
+	this.style.background = '#444444';
+}
+
+function handleDragOver(e) {
+	e.preventDefault();
+
+	e.dataTransfer.dropEffect = 'link'; // See the section on the DataTransfer object.
+
+	return false;
+}
+
+function handleDragLeave(e) {
+	this.style.background = '#333333';
+}
+
+function handleDrop(e) {
+	this.style.background = '#333333';
+
+	e.stopPropagation(); // Stops some browsers from redirecting.
+	e.preventDefault();
+
+	console.log(e.dataTransfer);
+}
+
 /*
 
            _     ___   ___  _  __     _  _____   __  ____   __         
