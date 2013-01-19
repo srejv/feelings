@@ -44,3 +44,14 @@ function addOpacityTween(obj) {
 		}
 	});
 }
+
+          @font-face
+{
+font-family: Neue;
+  src: url('../fonts/BebasNeue.otf'); /* IE9+ */
+}
+
+#ft
+{
+font-family:Neue;
+}
