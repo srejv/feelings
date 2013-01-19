@@ -43,4 +43,15 @@ function ImageRenderObject(imgurl) {
 function BackgroundRenderObject(color){
 	this.color = color;
 	this.type = "background";
+	this.addToOutput = function(pid) {
+		if($("#color").css("display") == "none") {
+			$("#color").css("background-color", color);
+			$("#color").fadeIn("slow");
+		} else {
+			$("#color").fadeOut("slow", function() {
+				$("#color").css("background-color", color);
+				$("#color").fadeIn("slow");
+      		});
+		}
+	}
 }

@@ -32,7 +32,6 @@ function createEvent(row) {
 	d.duration = row.duration;
 	d.length = row.length;
 	d.time = row.time;
-	
 	if(row.event.type == 'image') {
 		d.renderobject = new ImageRenderObject(row.event.url);
 	} else if(row.event.type == 'text') {
@@ -195,12 +194,18 @@ $(document).ready(function() {
 	
 	
 	$('#test_post').click(function () {
+		/*
 		var tt = player.track.data.uri;
 		var text = tt;
 	 	var fixed;
 	    fixed = text.replace(/\bspotify:track:/, "");
 	 
 		addEventToCouch(fixed, 0, 0, "linear", 1, 1, 1, "lol", "text");
+		*/
+		
+		animateBackground("#FF00FF");
+		
+		
 	});	
 });
 
@@ -220,6 +225,7 @@ function timelineCallback() {
 		if(obj.type != "background") {
 			addObject(obj);
 		} else {
+			console.log("tjj");
 			animateBackground(obj.color);
 		}
 		
@@ -239,7 +245,7 @@ function addObject(obj) {
 }
 
 
-var drop = document.querySelector('#friend-drop');
+var drop = document.querySelector('#image-drop');
 
 drop.addEventListener('dragenter', handleDragEnter, false);
 drop.addEventListener('dragover', handleDragOver, false);
@@ -253,7 +259,7 @@ function handleDragEnter(e) {
 function handleDragOver(e) {
 	e.preventDefault();
 
-	e.dataTransfer.dropEffect = 'link'; // See the section on the DataTransfer object.
+	e.dataTransfer.dropEffect = 'copy'; // See the section on the DataTransfer object.
 
 	return false;
 }
@@ -266,8 +272,20 @@ function handleDrop(e) {
 	this.style.background = '#333333';
 	e.stopPropagation(); // Stops some browsers from redirecting.
 	e.preventDefault();
+
+	var ctx = document.getElementById('canvas').getContext('2d'), reader = new FileReader;
+
+	reader.onload = function(event) {
+		var img = new Image();
 	
-	console.log(e.dataTransfer);
+		img.onload = function() {
+			ctx.drawImage(img, 20,20);
+		};
+	
+		img.src = event.target.result;
+	};
+
+	reader.readAsDataURL(e.dataTransfer.files[0]);
 }
 
 // Gets the direct url from an imgur id?
@@ -333,15 +351,16 @@ function uploadURLToImgur(url) {
 }
 
 function animateBackground(color) {
-	$(document.body).animate({ 
-		backgroundColor:color
-	}, 1000); 
+	$("#color").css("background-color", color);
+	$("#color").fadeIn("slow");
+	
 }
 
 /*
 
            _     ___   ___  _  __     _  _____   __  ____   __         
           | |   / _ \ / _ \| |/ /    / \|_   _| |  \/  \ \ / /         
+		   
           | |  | | | | | | | ' /    / _ \ | |   | |\/| |\ V /          
           | |__| |_| | |_| | . \   / ___ \| |   | |  | | | |           
           |_____\___/ \___/|_|\_\ /_/   \_\_|   |_|  |_| |_|           
