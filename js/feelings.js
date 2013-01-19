@@ -233,10 +233,9 @@ function uploadToImgur(url) {
         url: 'https://api.imgur.com/3/image',
         type: 'POST',
         data: {
-            type: 'url',
+            type: 'URL',
             // get your key here, quick and fast http://imgur.com/register/api_anon
             key: '75e600ffae7109a47b3c2130ef80073f',
-            name: url,
             image: url
         },
         dataType: 'json'
@@ -246,7 +245,6 @@ function uploadToImgur(url) {
         alert('Could not reach api.imgur.com. Sorry :(');
         w.close();
     });
-
 }
 
 /*
