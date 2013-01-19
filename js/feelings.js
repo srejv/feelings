@@ -33,10 +33,10 @@ function createEvent(row) {
 	d.length = row.length;
 	d.time = row.time;
 	
-	if(row.type == 'image') {
-		d.renderobject = new ImageRenderObject(row.data);
-	} else if(row.type == 'text') {
-		d.renderobject = new TextRenderObject(row.data);
+	if(row.event.type == 'image') {
+		d.renderobject = new ImageRenderObject(row.event.url);
+	} else if(row.event.type == 'text') {
+		d.renderobject = new TextRenderObject(row.event.data);
 	}
 	
 	return d;
