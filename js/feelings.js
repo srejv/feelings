@@ -5,7 +5,7 @@ var session = models.session;
 
 function loadDataFromCouch(trackid) {
 
-	var url = 'http://festivalify.se:5984/feelings/_design/event/_view/all?startkey=["'+trackid+'",0.0]&endkey=["'+trackid+'","kebab"]'
+	var url = 'http://festivalify.se:5984/feelings/_design/event/_view/all?startkey=["'+trackid+'",0.0]&endkey=["'+trackid+'","kebab"]';
 	$.getJSON(url,
 		function(data) {
 			console.log(data);
@@ -14,7 +14,12 @@ function loadDataFromCouch(trackid) {
 
 function addEventToCouch() {
 	
-	{
+	var url = 'http://festivalify.se:5984/feelings/_design/event/_view/all?startkey=["'+trackid+'",0.0]&endkey=["'+trackid+'","kebab"]';
+	
+	$.ajax({
+	  type: "POST",
+	  url: url,
+	  data: {
    		"track_id": null,
    		"x": 0,
    		"y": 0,
@@ -25,7 +30,11 @@ function addEventToCouch() {
    		"data": "Hello world",
    		"type": "text",
    		"user_id": null
-	}
+	},
+	  dataType: "json"
+	});
+	
+	
 }
 
 models.player.observe(models.EVENT.CHANGE, function(e) {
