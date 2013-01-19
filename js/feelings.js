@@ -9,7 +9,6 @@ function loadDataFromCouch(trackid) {
 	$.getJSON(url,
 		function(data) {
 			console.log(data);
-	
 	}); 
 
 }
