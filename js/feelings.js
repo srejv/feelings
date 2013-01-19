@@ -20,13 +20,18 @@ models.player.observe(models.EVENT.CHANGE, function(e) {
 });
 
 function CorrectQueue(time) {
-	currentObj = 0;
+	var newid = 0;
 	for(var i = 0; i < objqueue.length; i++) {
 		if(objqueue[i].time - objqueue[i].duration < time) {
-			currentObj = i;
+			newid = i;
 		} else {
 			break;
 		}
+	}
+	
+	if(newid != currentObj) {
+		output.empty();
+		currentObj = newid;
 	}
 }
 
