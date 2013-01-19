@@ -162,6 +162,17 @@ function loadQueue() {
 	
 	objqueue.push(drawable);
 	
+	drawable = new Drawable();
+	
+	drawable.renderobject = new BackgroundRenderObject('images/dwid.gif');
+	drawable.x = 30;
+	drawable.y = 30;
+	drawable.time = 15;
+	drawable.length = 5;
+	drawable.id = "dwit";
+	
+	objqueue.push(drawable);
+	
 	
 }
 
@@ -206,7 +217,11 @@ function timelineCallback() {
 		var obj = objqueue[currentObj];
 		currentObj = currentObj + 1;
 		
-		addObject(obj);
+		if(obj.type != "background") {
+			addObject(obj);
+		} else {
+			animateBackground(obj.color);
+		}
 		
 	}
 }
@@ -223,7 +238,7 @@ function addObject(obj) {
 		})});
 }
 
-<<<<<<< HEAD
+
 var drop = document.querySelector('#friend-drop');
 
 drop.addEventListener('dragenter', handleDragEnter, false);
@@ -280,6 +295,12 @@ function uploadToImgur(url) {
         alert('Could not reach api.imgur.com. Sorry :(');
         w.close();
     });
+}
+
+function animateBackground(color) {
+	$(document.body).animate({ 
+		backgroundColor:color
+	}, 1000); 
 }
 
 /*

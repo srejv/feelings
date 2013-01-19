@@ -13,6 +13,7 @@ function Drawable() {
 
 function TextRenderObject(txt) {
 	this.text = txt;
+	this.type = "text";
 	
 	this.addToOutput = function(pid) {
 		// Append div text tag with id
@@ -26,6 +27,7 @@ function TextRenderObject(txt) {
 
 function ImageRenderObject(imgurl) {
 	this.src = imgurl;
+	this.type ="image";
 	
 	this.addToOutput = function(pid) {
 		// Append div image tag with id
@@ -38,7 +40,7 @@ function ImageRenderObject(imgurl) {
 	}
 }
 
-function BackgroundRenderObject(hex)
-{
-	 $(this).animate({ backgroundColor: "olive" }, "slow");
+function BackgroundRenderObject(color){
+	this.color = color;
+	this.type = "background";
 }
