@@ -32,7 +32,7 @@ function createEvent(row) {
 	d.duration = row.duration;
 	d.length = row.length;
 	d.time = row.time;
-	
+	console.log(row.event);
 	if(row.event.type == 'image') {
 		d.renderobject = new ImageRenderObject(row.event.url);
 	} else if(row.event.type == 'text') {
@@ -195,12 +195,18 @@ $(document).ready(function() {
 	
 	
 	$('#test_post').click(function () {
+		/*
 		var tt = player.track.data.uri;
 		var text = tt;
 	 	var fixed;
 	    fixed = text.replace(/\bspotify:track:/, "");
 	 
 		addEventToCouch(fixed, 0, 0, "linear", 1, 1, 1, "lol", "text");
+		*/
+		
+		animateBackground("#FF00FF");
+		
+		
 	});	
 });
 
@@ -264,7 +270,6 @@ function handleDragLeave(e) {
 
 function handleDrop(e) {
 	this.style.background = '#333333';
-
 	e.stopPropagation(); // Stops some browsers from redirecting.
 	e.preventDefault();
 
@@ -283,10 +288,25 @@ function handleDrop(e) {
 	reader.readAsDataURL(e.dataTransfer.files[0]);
 }
 
-// imgur api: 75e600ffae7109a47b3c2130ef80073f
-function uploadToImgur(url) {
+// Gets the direct url from an imgur id?
+function getImage(imageid) {
+	$.ajax({
+		url: 'https://api.imgur.com/3/image/'+imageid,
+		type: 'GET',
+		dataType: 'json'
+	}).success(function(data) {
+		alert("getimagesuccess");
+		return data.link;
+	}).error(function() {
+		alert("ERROR!");
+	});
 	
-    // open the popup in the click handler so it will not be blocked
+	return "";
+}
+
+// Supposed to upload an image FILE to imgur
+function uploadImageFileToImgur(image) {
+	// open the popup in the click handler so it will not be blocked
     var w = window.open();
     w.document.write('Uploading...');
     // upload to imgur using jquery/CORS
@@ -295,10 +315,10 @@ function uploadToImgur(url) {
         url: 'https://api.imgur.com/3/image',
         type: 'POST',
         data: {
-            type: 'URL',
+            type: 'file',
             // get your key here, quick and fast http://imgur.com/register/api_anon
             key: '75e600ffae7109a47b3c2130ef80073f',
-            image: url
+            image: image
         },
         dataType: 'json'
     }).success(function(data) {
@@ -309,10 +329,32 @@ function uploadToImgur(url) {
     });
 }
 
+// imgur api: 75e600ffae7109a47b3c2130ef80073f
+function uploadURLToImgur(url) {
+	
+    $.ajax({
+        url: 'https://api.imgur.com/3/image',
+        type: 'POST',
+        data: {
+            type: 'URL',
+            key: '75e600ffae7109a47b3c2130ef80073f',
+            image: url
+        },
+        dataType: 'json'
+    }).success(function(data) {
+    	// Return data? just the link?
+        //w.location.href = data['upload']['links']['imgur_page'];
+        console.log(data);
+    }).error(function() {
+        console.log('Could not reach api.imgur.com. Sorry :(');
+    });
+}
+
 function animateBackground(color) {
-	$(document.body).animate({ 
-		backgroundColor:color
-	}, 1000); 
+	//console.log("jens");
+	$("#color").css("background-color", color);
+	$("#color").fadeIn("slow");
+	
 }
 
 /*
