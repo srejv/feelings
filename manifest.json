@@ -11,6 +11,12 @@
 	"BundleIdentifier": "feeling",
 	"BundleType": "Application",
 	"BundleVersion": "0.1",
+	"AcceptedViewDropTypes": [
+			"image",
+			"jpg",
+			"png",
+			"jpeg"
+		],
 	"DefaultTabs": [
 		{
 			"arguments": "index",
