@@ -9,7 +9,7 @@ models.player.observe(models.EVENT.CHANGE, function(event) {
 
 var output = $("#output");
 
-var objqueue = [];
+var objqueue = new Queue();
 
 function Drawable() {
 	this.id = '#id'
@@ -24,10 +24,10 @@ function Drawable() {
 function TextRenderObject(txt) {
 	this.text = txt;
 	
-	this.addToOutput(pid) {
+	this.addToOutput = function(pid) {
 		// Append div text tag with id
 		var item = document.createElement('div');
-		ouput.append($('<div></div>')
+		output.append($('<div></div>')
 				.text(this.text)
         		.attr({ id : pid })
         		.addClass("drawable"));
@@ -37,14 +37,14 @@ function TextRenderObject(txt) {
 function ImageRenderObject(imgurl) {
 	this.src = imgurl;
 	
-	this.addToOutput(pid) {
+	this.addToOutput = function(pid) {
 		// Append div image tag with id
 		var item = document.createElement('div');
-		ouput.append($('<div></div>')
+		output.append($('<div></div>')
         		.attr({ id : pid })
         		.addClass("drawable")
         		.append($('<img/>')
-        		.attr({ src : this.src }));
+        		.attr({ src : this.src })));
 	}
 }
 	
@@ -56,8 +56,7 @@ function loadQueue() {
 	drawable.y = 100;
 	drawable.time = 5;
 	
-	objqueue.push(drawable);
-	
+	objqueue.enqueue(drawable);
 }
 
 $(document).ready(function() {
@@ -80,13 +79,16 @@ function init() {
 }
 
 function timelineCallback() {
+	console.log("timeline callback");
+
 	var pos = player.position;
 	var time = pos / 1000;
 	
-	while(objqueue[0] != null && (time > objqueue[0].time - objqueue[0].duration)) {
-		var obj = objqueue[0].shift();
+	while(!objqueue.isEmpty() && (time > objqueue.peek().time - objqueue.peek().duration)) {
+		var obj = objqueue.dequeue();
+		console.log("Object dequeued");
+		obj.renderobject.addToOutput();
 		addOpacityTween(obj.id, obj.time, obj.duration, obj.easeType, obj.x, obj.y);
-	}
 	}
 }
 
