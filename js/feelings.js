@@ -3,6 +3,7 @@ var models = sp.require('sp://import/scripts/api/models');
 var player = models.player;
 var session = models.session;
 var uploadImg = new Image();
+var currentTrack;
 
 function loadDataFromCouch(trackid) {
 
@@ -44,7 +45,7 @@ function createEvent(row) {
 	return d;
 }
 
-function addEventToCouch(trackid, x, y, easeType, duration, length, time, data, type) {
+function addEventToCouch(trackid, x, y, easeType, duration, length, time, eventData) {
 	
 	var url = 'http://festivalify.se:5984/feelings/';
 	var object = {
@@ -55,9 +56,7 @@ function addEventToCouch(trackid, x, y, easeType, duration, length, time, data, 
    		"duration": duration,
    		"length": length,
    		"time": time,
-   		"data": data,
-   		"type": type,
-   		"user_id": null
+   		"event": eventData,
 	};
 	
 	$.ajax({
@@ -91,10 +90,9 @@ models.player.observe(models.EVENT.CHANGE, function(e) {
 		current_p = Math.round(((duration_p / position_p) * 100 *0.85)*100)/100;
 		var tt = player.track.data.uri;
 		var text = tt;
-	 	var fixed;
-	    fixed = text.replace(/\bspotify:track:/, "");
+	    currentTrack = text.replace(/\bspotify:track:/, "");
 	 
-	 	loadDataFromCouch(fixed);
+	 	loadDataFromCouch(currentTrack);
 	 	CorrectQueue(pos / 1000);
 	}
 });
@@ -286,7 +284,7 @@ function handleDrop(e) {
 			canvas.height = img.height;
 			ctx.drawImage(img, 0,0);
 			
-			share();
+			share(img.width, img.height);
 			
 		};
 	
@@ -314,7 +312,7 @@ function getImage(imageid) {
 	return "";
 }
 
-function share(){
+function share(x, y){
     try {
         var img = canvas.toDataURL('image/jpeg', 0.9).split(',')[1];
     } catch(e) {
@@ -339,7 +337,14 @@ function share(){
         },
         dataType: 'json'
     }).success(function(data) {
-        w.location.href = data['upload']['links']['imgur_page'];
+    	eventData = {
+	       "type": "image",
+	       "url": data.upload.links.original,
+	       "size_x": x,
+	       "size_y": y
+   	};
+   		addEventToCouch(currentTrack, 0, 0, "linear", 1, 1, 10, eventData);
+   		
     }).error(function() {
         alert('Could not reach api.imgur.com. Sorry :(');
         w.close();
