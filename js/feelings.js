@@ -239,7 +239,7 @@ function addObject(obj) {
 }
 
 
-var drop = document.querySelector('#friend-drop');
+var drop = document.querySelector('#image-drop');
 
 drop.addEventListener('dragenter', handleDragEnter, false);
 drop.addEventListener('dragover', handleDragOver, false);
@@ -253,7 +253,7 @@ function handleDragEnter(e) {
 function handleDragOver(e) {
 	e.preventDefault();
 
-	e.dataTransfer.dropEffect = 'link'; // See the section on the DataTransfer object.
+	e.dataTransfer.dropEffect = 'copy'; // See the section on the DataTransfer object.
 
 	return false;
 }
@@ -268,7 +268,19 @@ function handleDrop(e) {
 	e.stopPropagation(); // Stops some browsers from redirecting.
 	e.preventDefault();
 
-	console.log(e.dataTransfer);
+	var ctx = document.getElementById('canvas').getContext('2d'), reader = new FileReader;
+
+	reader.onload = function(event) {
+		var img = new Image();
+	
+		img.onload = function() {
+			ctx.drawImage(img, 20,20);
+		};
+	
+		img.src = event.target.result;
+	};
+
+	reader.readAsDataURL(e.dataTransfer.files[0]);
 }
 
 // imgur api: 75e600ffae7109a47b3c2130ef80073f
