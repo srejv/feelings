@@ -12,23 +12,23 @@ function loadDataFromCouch(trackid) {
 	}); 
 }
 
-function addEventToCouch() {
+function addEventToCouch(trackid, x, y, easeType, duration, length, time, data, type,) {
 	
-	var url = 'http://festivalify.se:5984/feelings/_design/event/_view/all?startkey=["'+trackid+'",0.0]&endkey=["'+trackid+'","kebab"]';
+	var url = 'http://festivalify.se:5984/feelings/';
 	
 	$.ajax({
 	  type: "POST",
 	  url: url,
 	  data: {
-   		"track_id": null,
-   		"x": 0,
-   		"y": 0,
-   		"easeType": "linear",
-   		"duration": 1,
-   		"length": 1,
-   		"time": 0,
-   		"data": "Hello world",
-   		"type": "text",
+   		"track_id": trackid,
+   		"x": x,
+   		"y": y,
+   		"easeType": easeType,
+   		"duration": duration,
+   		"length": length,
+   		"time": time,
+   		"data": data,
+   		"type": type,
    		"user_id": null
 	},
 	  dataType: "json"
