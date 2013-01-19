@@ -153,7 +153,7 @@ function loadQueue() {
 	
 	drawable = new Drawable();
 	
-	drawable.renderobject = new ImageRenderObject('images/dwid.gif');
+	drawable.renderobject = new ImageRenderObject('/images/dwid.gif');
 	drawable.x = 30;
 	drawable.y = 30;
 	drawable.time = 15;
@@ -164,7 +164,7 @@ function loadQueue() {
 	
 	drawable = new Drawable();
 	
-	drawable.renderobject = new BackgroundRenderObject('images/dwid.gif');
+	drawable.renderobject = new BackgroundRenderObject('/images/dwid.gif');
 	drawable.x = 30;
 	drawable.y = 30;
 	drawable.time = 15;
