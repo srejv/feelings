@@ -264,17 +264,31 @@ function handleDragLeave(e) {
 
 function handleDrop(e) {
 	this.style.background = '#333333';
-
 	e.stopPropagation(); // Stops some browsers from redirecting.
 	e.preventDefault();
-
+	
 	console.log(e.dataTransfer);
 }
 
-// imgur api: 75e600ffae7109a47b3c2130ef80073f
-function uploadToImgur(url) {
+// Gets the direct url from an imgur id?
+function getImage(imageid) {
+	$.ajax({
+		url: 'https://api.imgur.com/3/image/'+imageid,
+		type: 'GET',
+		dataType: 'json'
+	}).success(function(data) {
+		alert("getimagesuccess");
+		return data.link;
+	}).error(function() {
+		alert("ERROR!");
+	});
 	
-    // open the popup in the click handler so it will not be blocked
+	return "";
+}
+
+// Supposed to upload an image FILE to imgur
+function uploadImageFileToImgur(image) {
+	// open the popup in the click handler so it will not be blocked
     var w = window.open();
     w.document.write('Uploading...');
     // upload to imgur using jquery/CORS
@@ -283,10 +297,10 @@ function uploadToImgur(url) {
         url: 'https://api.imgur.com/3/image',
         type: 'POST',
         data: {
-            type: 'URL',
+            type: 'file',
             // get your key here, quick and fast http://imgur.com/register/api_anon
             key: '75e600ffae7109a47b3c2130ef80073f',
-            image: url
+            image: image
         },
         dataType: 'json'
     }).success(function(data) {
@@ -294,6 +308,27 @@ function uploadToImgur(url) {
     }).error(function() {
         alert('Could not reach api.imgur.com. Sorry :(');
         w.close();
+    });
+}
+
+// imgur api: 75e600ffae7109a47b3c2130ef80073f
+function uploadURLToImgur(url) {
+	
+    $.ajax({
+        url: 'https://api.imgur.com/3/image',
+        type: 'POST',
+        data: {
+            type: 'URL',
+            key: '75e600ffae7109a47b3c2130ef80073f',
+            image: url
+        },
+        dataType: 'json'
+    }).success(function(data) {
+    	// Return data? just the link?
+        //w.location.href = data['upload']['links']['imgur_page'];
+        console.log(data);
+    }).error(function() {
+        console.log('Could not reach api.imgur.com. Sorry :(');
     });
 }
 
