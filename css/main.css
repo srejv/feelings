@@ -1,0 +1,9 @@
+.drawable {
+	position:relative;
+	opacity:0;
+}
+
+#output {
+	width:600;
+	height:400;
+}
