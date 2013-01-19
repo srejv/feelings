@@ -9,8 +9,6 @@ function loadDataFromCouch(trackid) {
 
 	var url = 'http://festivalify.se:5984/feelings/_design/event/_view/all?startkey=["'+trackid+'",0.0]&endkey=["'+trackid+'","kebab"]';
 	
-	//console.log(url);
-	
 	$.getJSON(url,
 		function(data) {
 			if(data.rows.length > 0) {
@@ -20,7 +18,6 @@ function loadDataFromCouch(trackid) {
 					objqueue.push(d);
 				}
 			}
-			//console.log(data);
 	}); 
 }
 
@@ -34,8 +31,11 @@ function createEvent(row) {
 	d.duration = row.duration;
 	d.length = row.length;
 	d.time = row.time;
+
 	if(row.event.type == 'image') {
 		d.renderobject = new ImageRenderObject(row.event.url);
+		d.renderobject.size_x = row.event.size_x;
+		d.renderobject.size_y = row.event.size_y;
 	} else if(row.event.type == 'text') {
 		d.renderobject = new TextRenderObject(row.event.data);
 	} else if(row.event.type == 'background') {
@@ -190,6 +190,8 @@ $(document).ready(function() {
 		player.position = 0;
 		player.play(t);
 	});	
+
+	$('#slider').slider();
 	
 	
 	$('#test_post').click(function () {

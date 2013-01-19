@@ -68,6 +68,8 @@ function TextRenderObject(txt) {
 function ImageRenderObject(imgurl) {
 	this.src = imgurl;
 	this.type ="image";
+	this.size_x = 0;
+	this.size_y = 0;
 	
 	this.addToOutput = function(pid) {
 		// Append div image tag with id
@@ -76,7 +78,7 @@ function ImageRenderObject(imgurl) {
         		.attr("id", pid)
         		.addClass("drawable")
         		.append($('<img/>')
-        		.attr({ src : this.src })));
+        		.attr({ src : this.src, width: this.size_x, height: this.size_y })));
 	}
 }
 
