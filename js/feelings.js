@@ -6,10 +6,42 @@ var session = models.session;
 function loadDataFromCouch(trackid) {
 
 	var url = 'http://festivalify.se:5984/feelings/_design/event/_view/all?startkey=["'+trackid+'",0.0]&endkey=["'+trackid+'","kebab"]';
+	
+	//console.log(url);
+	
 	$.getJSON(url,
 		function(data) {
-			console.log(data);
+			if(data.rows.length > 0) {
+				objqueue = [];
+				for(var i = 0; i < data.rows.length; i++) {
+					var d = createEvent(data.rows[i].value);
+					objqueue.push(d);
+				}
+			}
+			//console.log(data);
 	}); 
+}
+
+
+function createEvent(row) {
+	var d = new Drawable();
+	d.id = row._id; // random unique identifier, doesn't matter
+	d.x = row.x;
+	d.y = row.y;
+	d.easeType = row.easeType;
+	d.duration = row.duration;
+	d.length = row.length;
+	d.time = row.time;
+	
+	if(row.event.type == 'image') {
+		d.renderobject = new ImageRenderObject(row.event.url);
+	} else if(row.event.type == 'text') {
+		d.renderobject = new TextRenderObject(row.event.data);
+	} else if(row.event.type == 'background') {
+		//set bg data here
+	}
+	
+	return d;
 }
 
 function addEventToCouch(trackid, x, y, easeType, duration, length, time, data, type) {
@@ -94,43 +126,7 @@ function reset() {
 	output.empty();
 }
 
-function Drawable() {
-	this.id = 'id'
-	this.x = 0;
-	this.y = 0;
-	this.easeType = 'linear';
-	this.duration = 1;
-	this.length = 1;
-	this.time = 0;
-	this.renderobject = null;
-}
 
-function TextRenderObject(txt) {
-	this.text = txt;
-	
-	this.addToOutput = function(pid) {
-		// Append div text tag with id
-		var item = document.createElement('div');
-		output.append($('<div></div>')
-				.text(this.text)
-        		.attr({ id : pid })
-        		.addClass("drawable"));
-	}
-}
-
-function ImageRenderObject(imgurl) {
-	this.src = imgurl;
-	
-	this.addToOutput = function(pid) {
-		// Append div image tag with id
-		var item = document.createElement('div');
-		output.append($('<div></div>')
-        		.attr("id", pid)
-        		.addClass("drawable")
-        		.append($('<img/>')
-        		.attr({ src : this.src })));
-	}
-}
 	
 function loadQueue() {
 	var drawable = new Drawable();
@@ -227,6 +223,7 @@ function addObject(obj) {
 		})});
 }
 
+<<<<<<< HEAD
 var drop = document.querySelector('#friend-drop');
 
 drop.addEventListener('dragenter', handleDragEnter, false);
@@ -257,6 +254,32 @@ function handleDrop(e) {
 	e.preventDefault();
 
 	console.log(e.dataTransfer);
+}
+
+// imgur api: 75e600ffae7109a47b3c2130ef80073f
+function uploadToImgur(url) {
+	
+    // open the popup in the click handler so it will not be blocked
+    var w = window.open();
+    w.document.write('Uploading...');
+    // upload to imgur using jquery/CORS
+    // https://developer.mozilla.org/En/HTTP_access_control
+    $.ajax({
+        url: 'https://api.imgur.com/3/image',
+        type: 'POST',
+        data: {
+            type: 'URL',
+            // get your key here, quick and fast http://imgur.com/register/api_anon
+            key: '75e600ffae7109a47b3c2130ef80073f',
+            image: url
+        },
+        dataType: 'json'
+    }).success(function(data) {
+        w.location.href = data['upload']['links']['imgur_page'];
+    }).error(function() {
+        alert('Could not reach api.imgur.com. Sorry :(');
+        w.close();
+    });
 }
 
 /*
