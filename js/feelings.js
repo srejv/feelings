@@ -11,7 +11,22 @@ function loadDataFromCouch(trackid) {
 			console.log(data);
 	
 	}); 
+}
 
+function addEventToCouch() {
+	
+	{
+   		"track_id": null,
+   		"x": 0,
+   		"y": 0,
+   		"easeType": "linear",
+   		"duration": 1,
+   		"length": 1,
+   		"time": 0,
+   		"data": "Hello world",
+   		"type": "text",
+   		"user_id": null
+	}
 }
 
 models.player.observe(models.EVENT.CHANGE, function(e) {
