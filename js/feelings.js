@@ -41,7 +41,7 @@ function ImageRenderObject(imgurl) {
 		// Append div image tag with id
 		var item = document.createElement('div');
 		output.append($('<div></div>')
-        		.attr({ id : pid })
+        		.attr("id", pid)
         		.addClass("drawable")
         		.append($('<img/>')
         		.attr({ src : this.src })));
@@ -52,11 +52,24 @@ function loadQueue() {
 	var drawable = new Drawable();
 	
 	drawable.renderobject = new TextRenderObject("Hello world");
-	drawable.x = 100;
-	drawable.y = 100;
+	drawable.x = 150;
+	drawable.y = 150;
 	drawable.time = 5;
+	drawable.id = "derp";
 	
 	objqueue.enqueue(drawable);
+	
+	drawable = new Drawable();
+	
+	drawable.renderobject = new ImageRenderObject('http://www.dn.se/Images/image/22/54/381460.jpg');
+	drawable.x = 200;
+	drawable.y = 200;
+	drawable.time = 10;
+	drawable.id = "img";
+	
+	objqueue.enqueue(drawable);	
+	
+	
 }
 
 $(document).ready(function() {
@@ -84,22 +97,24 @@ function timelineCallback() {
 	var pos = player.position;
 	var time = pos / 1000;
 	
-	while(!objqueue.isEmpty() && (time > objqueue.peek().time - objqueue.peek().duration)) {
+	while(!objqueue.isEmpty() && (time >= (objqueue.peek().time - objqueue.peek().duration))) {
 		var obj = objqueue.dequeue();
 		console.log("Object dequeued");
-		obj.renderobject.addToOutput();
-		addOpacityTween(obj.id, obj.time, obj.duration, obj.easeType, obj.x, obj.y);
+		obj.renderobject.addToOutput(obj.id);
+		addOpacityTween(obj.id, obj.duration, obj.duration, obj.easeType, obj.x, obj.y);
+		
+		$.play();
 	}
 }
 
 function addOpacityTween(target, time, duration, easeType, x, y) {
-	$(target).css('left', x).css('top', y);
+	$('#'+target).css('left', x).css('top', y);
 	
-	$(target).tween({
+	$('#'+target).tween({
 		opacity: {
 			start: 0,
 			stop: 100,
-			time: time,
+			time: 0,
 			duration: duration,
 			effect: easeType
 		}
@@ -109,7 +124,7 @@ function addOpacityTween(target, time, duration, easeType, x, y) {
 			stop: 0,
 			time: time + duration,
 			duration: duration,
-			efect: easeType
+			effect: easeType
 		}
 	});
 }
