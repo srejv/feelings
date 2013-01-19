@@ -1,0 +1,39 @@
+
+body {
+	text-align:center;
+	margin:0;
+	padding: 20px;
+}
+
+#h1wrapper {
+	width:338px;
+	border-bottom: 6px #9a9898 solid;
+	margin-left: auto;
+	margin-right:auto;
+	margin-bottom:12px;
+}
+
+#wrapper h1 {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size:32pt;
+	margin-bottom: 4%;
+	color: #9a9898;
+	font-weight: bold;
+}
+
+
+#output {
+	background-color:#fafafa;
+	border:1px solid #9a9898;
+	box-shadow: 0 0 10px #888;
+	width:100%;
+	min-height:90%;
+	overflow: hidden;
+}
+
+#slider {
+	margin-top:-32px;
+	margin-left:12px;
+	margin-right:12px;
+	z-index:2000;
+}

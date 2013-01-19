@@ -6,10 +6,13 @@
   <script src="js/jquery-ui-1.10.0.custom.js"></script>
 
 	        <!-- Spotify CSS files -->
-  
+      <link rel="stylesheet" type="text/css" href="sp://resources/css/eve.css">
+    <link rel="stylesheet" type="text/css" href="sp://resources/css/api.css">
+    <link rel="stylesheet" type="text/css" href="sp://resources/css/player.css">
+    <link rel="stylesheet" type="text/css" href="sp://resources/css/list.css">
 
         <!-- Project CSS files -->
-        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/canvas.css">
         
         <style>
 
@@ -40,24 +43,35 @@
         
 </head>
 <body>
-          <a href="index.html">back to index</a>
+
+  <div id="wrapper">
+    <div id="h1wrapper">
+      <h1 id="supertitles">CANVAS TRACK</h1>
+    </div>
+    <div id="output"></div> <!-- the canvas -->
+  
+    <div id="slider"></div>
+  </div>
+
+
+  <!--<a href="index.html">back to index</a>-->
     
 <script>       
  $("#heest").blur(function() {
   $("#co").html('hej');
 });
-  $('body').click(function(e) {
+  $('#output').click(function(e) {
   // alert("e.pageX: " + e.pageX + ", e.pageY: " + e.pageY);
    var yy = e.pageY -12; 
     var xx = e.pageX -11; 
     var kian = "<div id='ex3' class='jqDnR'> <div class='jqHandle jqDrag'></div><br>I am an example Box '#ex3'<br><div class='jqHandle jqResize'></div></div>";
    $(this).append(
-   "<div id='image-drop' class='herp' style='height: 170px;width:100px;border:1px solid green;position:absolute;left:"+xx+";top:"+ yy +";'> <input type='text' style='border:none; font-size:35px; color:grey' class='ipfield' id='hest'><div style='border:1px dotted grey;'>drag image <br> here</div></div>");
+   "<div id='image-drop' class='herp' style='height: 110px;width:170px;border:1px solid green;position:absolute;left:"+xx+";top:"+ yy +";'> <input type='text' style='border:none; font-size:35px; color:grey' class='ipfield' id='hest'><div style='border:1px dotted grey;'>drag image <br> here</div></div>");
    $(this).children(':last').find(':input:last').focus(); 
        // alert( $("#hest").val());
      $(this).children(':last').find(':input:last').blur(function() {
     var ht =  $('body').find(':input:last').val();
-    alert(ht);
+    //alert(ht);
   $('body').find('.herp:last').html(ht);
 });
 
@@ -75,6 +89,7 @@
           	<script>
 	$(function() {
 		$( "#image-drop" ).draggable().resizable();
+    $('#slider').slider();
 	});
 	</script>
 </body>
