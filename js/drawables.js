@@ -37,3 +37,8 @@ function ImageRenderObject(imgurl) {
         		.attr({ src : this.src })));
 	}
 }
+
+function BackgroundRenderObject(hex)
+{
+	 $(this).animate({ backgroundColor: "olive" }, "slow");
+}

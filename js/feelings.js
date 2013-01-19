@@ -38,7 +38,7 @@ function createEvent(row) {
 	} else if(row.event.type == 'text') {
 		d.renderobject = new TextRenderObject(row.event.data);
 	} else if(row.event.type == 'background') {
-		//set bg data here
+		d.renderobject = new BackgroundRenderObject(row.event.color);
 	}
 	
 	return d;
