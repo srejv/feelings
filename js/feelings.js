@@ -178,7 +178,7 @@ $(document).ready(function() {
 				"Add text": function() {
 					eventData = {
 						"type": "text",
-						"size": $("#size-slider").val(),
+						"size": $("#size-slider").slider( "value" ),
 						"text": $("#textinput").val()
 					};
 					var tt = player.track.data.uri;
