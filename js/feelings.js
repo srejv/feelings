@@ -338,21 +338,22 @@ function share(x, y){
             image: img
         },
         dataType: 'json'
-    }).success(function(data) {
-    	eventData = {
-	       "type": "image",
-	       "url": data.upload.links.original,
-	       "size_x": x,
-	       "size_y": y
-   	};
-   		addEventToCouch(currentTrack, 0, 0, "linear", 1, 1, 10, eventData);
-   		
-    }).error(function() {
+    }).success(addImage).error(function() {
         alert('Could not reach api.imgur.com. Sorry :(');
         w.close();
     });
 }
 
+function addImage(data) {
+	console.log(data);
+	eventData = {
+	       "type": "image",
+	       "url": data.upload.links.original,
+	       "size_x": 200,
+	       "size_y": 200
+   	};
+   		addEventToCouch(currentTrack, 0, 0, "linear", 1, 1, 10, eventData);
+}
 
 
 /*
