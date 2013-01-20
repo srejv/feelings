@@ -4,18 +4,29 @@ var player = models.player;
 var session = models.session;
 var uploadImg = new Image();
 var currentTrack;
+var output = $("#output");
+var objqueue = [];
+var currentObj = 0;
 
+// kör varje callback 
 function loadDataFromCouch(trackid) {
-
 	var url = 'http://festivalify.se:5984/feelings/_design/event/_view/all?startkey=["'+trackid+'",0.0]&endkey=["'+trackid+'","kebab"]';
 	
 	$.getJSON(url,
 		function(data) {
-			if(data.rows.length > 0) {
-				objqueue = [];
-				for(var i = 0; i < data.rows.length; i++) {
-					var d = createEvent(data.rows[i].value);
-					objqueue.push(d);
+			// if(data.rows.length != objqueue) {  eller bara detta?
+			if(data.rows.length > 0 && data.rows.length != objqueue.length) {
+				
+				if(trackid == currentTrack) {
+					// javascript insert difference? 
+				} 
+				else {
+					reset();
+					currentTrack = trackid;
+					for(var i = 0; i < data.rows.length; i++) {
+						var d = createEvent(data.rows[i].value);
+						objqueue.push(d);
+					}
 				}
 			}
 		}); 
@@ -90,14 +101,13 @@ models.player.observe(models.EVENT.CHANGE, function(e) {
 		current_p = Math.round(((duration_p / position_p) * 100 *0.85)*100)/100;
 		var tt = player.track.data.uri;
 		var text = tt;
-		   currentTrack = text.replace(/\bspotify:track:/, "");
-		
-		loadDataFromCouch(currentTrack);
-		CorrectQueue(pos / 1000);
+	    var track = text.replace(/\bspotify:track:/, "");
+	 	loadDataFromCouch(track);
+	 	correctQueue(pos / 1000);
 	}
 });
 
-function CorrectQueue(time) {
+function correctQueue(time) {
 	var newid = 0;
 	for(var i = 0; i < objqueue.length; i++) {
 		if(objqueue[i].time - objqueue[i].duration < time) {
@@ -113,11 +123,6 @@ function CorrectQueue(time) {
 	}
 }
 
-var output = $("#output");
-
-var objqueue = [];
-var currentObj = 0;
-
 function reset() {
 	objqueue = [];
 	currentObj = 0;
@@ -125,71 +130,8 @@ function reset() {
 }
 
 
-
-function loadQueue() {
-	var drawable = new Drawable();
-	
-	drawable.renderobject = new TextRenderObject("Hello world");
-	drawable.x = 50;
-	drawable.y = 50;
-	drawable.time = 5;
-	drawable.id = "derp";
-	
-	objqueue.push(drawable);
-	
-	drawable = new Drawable();
-	
-	drawable.renderobject = new ImageRenderObject('/images/381460.jpeg');
-	drawable.x = 10;
-	drawable.y = 15;
-	drawable.time = 10;
-	drawable.id = "img";
-	drawable.easeType = 'quadIn';
-	
-	objqueue.push(drawable);	
-	
-	
-	drawable = new Drawable();
-	
-	drawable.renderobject = new ImageRenderObject('/images/dwid.gif');
-	drawable.x = 30;
-	drawable.y = 30;
-	drawable.time = 15;
-	drawable.length = 5;
-	drawable.id = "dwit";
-	
-	objqueue.push(drawable);
-	
-	drawable = new Drawable();
-	
-	drawable.renderobject = new BackgroundRenderObject('/images/dwid.gif');
-	drawable.x = 30;
-	drawable.y = 30;
-	drawable.time = 15;
-	drawable.length = 5;
-	drawable.id = "dwit";
-	
-	objqueue.push(drawable);
-	
-	
-}
-
 $(document).ready(function() {
-	init();
-	$('#btnplay').click(function () {
-		
-		//var easeType = $("#easingType").val();
-		//addOpacityTween('#label1', 0, 1, easeType, 10, 10);
-		//addOpacityTween('#label2', 5, 2, easeType, 100, 150);
-		
-		reset();
-		loadQueue();
-		
-		var t = player.track;
-		player.playing = false;
-		player.position = 0;
-		player.play(t);
-	});	
+	setInterval(timelineCallback, 1000);
 
 	//$('#slider').slider();
 	
@@ -211,10 +153,6 @@ $(document).ready(function() {
 	});	
 });
 
-function init() {
-	setInterval(timelineCallback, 1000);
-}
-
 function timelineCallback() {
 
 	var pos = player.position;
@@ -224,6 +162,10 @@ function timelineCallback() {
 		var obj = objqueue[currentObj];
 		currentObj = currentObj + 1;
 		
+		if(time >= obj.time + obj.length) {
+			continue;
+		}
+
 		if(obj.type != "background") {
 			addObject(obj);
 		} else {
