@@ -247,12 +247,14 @@ function addObject(obj) {
 }
 
 
-var drop = document.querySelector('#image-drop');
+var droppables = document.querySelectorAll('.droppable');
 
-drop.addEventListener('dragenter', handleDragEnter, false);
-drop.addEventListener('dragover', handleDragOver, false);
-drop.addEventListener('dragleave', handleDragLeave, false);
-drop.addEventListener('drop', handleDrop, false);
+[].forEach.call(droppables, function(droppable) {
+  droppable.addEventListener('dragenter', handleDragEnter, false)
+  droppable.addEventListener('dragover', handleDragOver, false);
+  droppable.addEventListener('dragleave', handleDragLeave, false);
+  droppable.addEventListener('drop', handleDrop, false);
+});
 
 function handleDragEnter(e) {
 	this.style.background = '#444444';
