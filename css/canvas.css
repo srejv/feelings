@@ -24,6 +24,7 @@ body {
 	display: none;
 }
 #dialog-confirm { display: none; }
+#text-add { display: none; }
 
 #image_add { display: none;
 	border-style:solid;

@@ -151,6 +151,44 @@ $(document).ready(function() {
 		//share();
 		
 	});	
+
+	 $('#output').click(function(e) {
+		var yy = e.pageY -12; 
+		var xx = e.pageX -11;
+		var pos = player.position;
+		$( "#text-add" ).dialog({
+			resizable: false,
+			modal: true,
+			buttons: {
+				"Add image": function() {
+					eventData = {
+						"type": "text",
+						"size": "20",
+						"text": $("#textinput").val()
+					};
+					var tt = player.track.data.uri;
+					var text = tt;
+					var ctrack = text.replace(/\bspotify:track:/, "");
+					addEventToCouch(ctrack, xx, yy, "linear", 1, $( "#slider-ranger-max" ).slider( "value" ), (pos/1000), eventData);
+					$( this ).dialog( "close" );
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+
+		$( "#slider-ranger-max" ).slider({
+			range: "max",
+			min: 1,
+			max: 10,
+			value: 2,
+			slide: function( event, ui ) {
+				$( "#amounte" ).val( ui.value );
+			}
+		});
+		$( "#amounte" ).val( $( "#slider-ranger-max" ).slider( "value" ) );
+	 });
 });
 
 function timelineCallback() {
