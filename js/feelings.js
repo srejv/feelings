@@ -277,27 +277,30 @@ function handleDrop(e) {
 	e.stopPropagation(); // Stops some browsers from redirecting.
 	e.preventDefault();
 
-	var ctx = document.getElementById('canvas').getContext('2d'), reader = new FileReader;
+	switch (e.dataTransfer.types[0]) {
+		case "image/png":
+		case "image/jpg":
+		var ctx = document.getElementById('canvas').getContext('2d'), reader = new FileReader;
 
-	reader.onload = function(event) {
-		var img = new Image();
-		
-		
-		img.onload = function() {
-			canvas.width = img.width;
-			canvas.height = img.height;
-			ctx.drawImage(img, 0,0);
-			
-			share(img.width, img.height);
-			
+		reader.onload = function(event) {
+			var img = new Image();
+
+
+			img.onload = function() {
+				canvas.width = img.width;
+				canvas.height = img.height;
+				ctx.drawImage(img, 0,0);
+
+				share(img.width, img.height);
+			};
+
+			img.src = event.target.result;
 		};
-		
-		img.src = event.target.result;
-		
-		
-	};
 
-	reader.readAsDataURL(e.dataTransfer.files[0]);
+		reader.readAsDataURL(e.dataTransfer.files[0]);
+
+		break;
+	}
 }
 
 // Gets the direct url from an imgur id?
