@@ -51,11 +51,14 @@
       	this.renderobject = null;
       }
 
-      function TextRenderObject(txt) {
-      	this.text = txt;
-      	this.type = "text";
-      	
-      	this.addToOutput = function(pid) {
+function TextRenderObject(txt) {
+  this.text = txt;
+  this.type = "text";
+  this.font = "";
+  this.size = 20;
+  
+
+  this.addToOutput = function(pid) {
 		// Append div text tag with id
 		var item = document.createElement('div');
 		output.append($('<div></div>')

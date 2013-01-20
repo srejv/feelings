@@ -13,6 +13,10 @@ body {
 	display: none;
 }
 
+.headerimg {
+	margin-bottom:2em;
+}
+
 #canvas {
 	display: none;
 }
