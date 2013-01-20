@@ -18,7 +18,7 @@ function loadDataFromCouch(trackid) {
 					objqueue.push(d);
 				}
 			}
-	}); 
+		}); 
 }
 
 
@@ -49,35 +49,35 @@ function addEventToCouch(trackid, x, y, easeType, duration, length, time, eventD
 	
 	var url = 'http://festivalify.se:5984/feelings/';
 	var object = {
-   		"track_id": trackid,
-   		"x": x,
-   		"y": y,
-   		"easeType": easeType,
-   		"duration": duration,
-   		"length": length,
-   		"time": time,
-   		"event": eventData,
+		"track_id": trackid,
+		"x": x,
+		"y": y,
+		"easeType": easeType,
+		"duration": duration,
+		"length": length,
+		"time": time,
+		"event": eventData,
 	};
 	
 	$.ajax({
-	  url: url,
-	  type: "POST",
-	  dataType: "json",
-	  contentType: "application/json",
-	  data: JSON.stringify(object),
+		url: url,
+		type: "POST",
+		dataType: "json",
+		contentType: "application/json",
+		data: JSON.stringify(object),
 
-	  complete: function() {
+		complete: function() {
 	    //called when complete
-	  },
+	},
 
-	  success: function() {
+	success: function() {
 	    //called when successful
-	 },
+	},
 
-	  error: function() {
+	error: function() {
 	    //called when there is an error
-	  },
-	});
+	},
+});
 	
 }
 
@@ -90,10 +90,10 @@ models.player.observe(models.EVENT.CHANGE, function(e) {
 		current_p = Math.round(((duration_p / position_p) * 100 *0.85)*100)/100;
 		var tt = player.track.data.uri;
 		var text = tt;
-	    currentTrack = text.replace(/\bspotify:track:/, "");
-	 
-	 	loadDataFromCouch(currentTrack);
-	 	CorrectQueue(pos / 1000);
+		   currentTrack = text.replace(/\bspotify:track:/, "");
+		
+		loadDataFromCouch(currentTrack);
+		CorrectQueue(pos / 1000);
 	}
 });
 
@@ -125,7 +125,7 @@ function reset() {
 }
 
 
-	
+
 function loadQueue() {
 	var drawable = new Drawable();
 	
@@ -236,12 +236,12 @@ function timelineCallback() {
 function addObject(obj) {
 	obj.renderobject.addToOutput(obj.id);
 	$('#'+obj.id).css('left', obj.x + "%").css('top', obj.y + "%")
-		.fadeTo(0,0,"linear", function() {
-			$('#'+obj.id).fadeTo(obj.duration*1000, 1, "linear", function() {
+	.fadeTo(0,0,"linear", function() {
+		$('#'+obj.id).fadeTo(obj.duration*1000, 1, "linear", function() {
 			setTimeout(function(){
-  				$('#' + obj.id).fadeTo(obj.duration*1000, 0, "linear", function() {
-  					$('#' + obj.id).remove();
-  				});
+				$('#' + obj.id).fadeTo(obj.duration*1000, 0, "linear", function() {
+					$('#' + obj.id).remove();
+				});
 			}, obj.length*1000);
 		})});
 }
@@ -250,10 +250,10 @@ function addObject(obj) {
 var droppables = document.querySelectorAll('.droppable');
 
 [].forEach.call(droppables, function(droppable) {
-  droppable.addEventListener('dragenter', handleDragEnter, false)
-  droppable.addEventListener('dragover', handleDragOver, false);
-  droppable.addEventListener('dragleave', handleDragLeave, false);
-  droppable.addEventListener('drop', handleDrop, false);
+	droppable.addEventListener('dragenter', handleDragEnter, false)
+	droppable.addEventListener('dragover', handleDragOver, false);
+	droppable.addEventListener('dragleave', handleDragLeave, false);
+	droppable.addEventListener('drop', handleDrop, false);
 });
 
 function handleDragEnter(e) {
@@ -291,7 +291,7 @@ function handleDrop(e) {
 			share(img.width, img.height);
 			
 		};
-	
+		
 		img.src = event.target.result;
 		
 		
@@ -317,21 +317,21 @@ function getImage(imageid) {
 }
 
 function share(x, y){
-    try {
-        var img = canvas.toDataURL('image/jpeg', 0.9).split(',')[1];
-    } catch(e) {
-        var img = canvas.toDataURL().split(',')[1];
-    }
+	try {
+		var img = canvas.toDataURL('image/jpeg', 0.9).split(',')[1];
+	} catch(e) {
+		var img = canvas.toDataURL().split(',')[1];
+	}
     // open the popup in the click handler so it will not be blocked
     var w = window.open();
     w.document.write('Uploading...');
     // upload to imgur using jquery/CORS
     // https://developer.mozilla.org/En/HTTP_access_control
     $.ajax({
-        url: 'http://api.imgur.com/2/upload.json',
-        type: 'POST',
-        data: {
-            type: 'base64',
+    	url: 'http://api.imgur.com/2/upload.json',
+    	type: 'POST',
+    	data: {
+    		type: 'base64',
             // get your key here, quick and fast http://imgur.com/register/api_anon
             key: '75e600ffae7109a47b3c2130ef80073f',
             name: 'neon.jpg',
@@ -341,9 +341,9 @@ function share(x, y){
         },
         dataType: 'json'
     }).success(addImage).error(function() {
-        alert('Could not reach api.imgur.com. Sorry :(');
-        w.close();
-    });
+    	alert('Could not reach api.imgur.com. Sorry :(');
+    		w.close();
+    	});
 }
 
 function addImage(data) {
@@ -358,12 +358,12 @@ function addImage(data) {
 	var endW;
 	var endH;
 	var pos = player.position;
-   	
-   	$("#appender").html('<img width="150px" src="'+data.upload.links.large_thumbnail+'">');
-   	$("#image_add").html('<img id="rezimg" width="150px" src="'+data.upload.links.original+'">');
-   	$("#image_add").show("fast");
-   	$("#image_add").draggable();
-   	$('#image_add').resizable({
+	
+	$("#appender").html('<img width="150px" src="'+data.upload.links.large_thumbnail+'">');
+	$("#image_add").html('<img id="rezimg" width="150px" src="'+data.upload.links.original+'">');
+	$("#image_add").show("fast");
+	$("#image_add").draggable();
+	$('#image_add').resizable({
 
 		resize : function(event,ui) {
 			endW = $(this).width();
@@ -377,46 +377,46 @@ function addImage(data) {
 		}
 	});
 	$( "#save_image" )
-      .button()
-      .click(function( event ) {
-				      $( "#dialog-confirm" ).dialog({
-				      resizable: false,
-				      modal: true,
-				      buttons: {
-				        "Add image": function() {
-				        		eventData = {
-							       "type": "image",
-							       "url": data.upload.links.original,
-							       "size_x": endW,
-							       "size_y": endH
-						   	};
-						   	var tt = player.track.data.uri;
-							var text = tt;
-	    					var ctrack = text.replace(/\bspotify:track:/, "");
-				        	addEventToCouch(ctrack, $('#image_add').position().left, $('#image_add').position().top, "linear", easein_easeouttime, $( "#slider-range-max" ).slider( "value" ), (pos/1000), eventData);
-				          $( this ).dialog( "close" );
-				          $('#save_image').hide("fast");
-				          $('#image_add').fadeOut("fast");
-				        },
-				        Cancel: function() {
-				          $( this ).dialog( "close" );
-				        }
-				      }
-				    });
+	.button()
+	.click(function( event ) {
+		$( "#dialog-confirm" ).dialog({
+			resizable: false,
+			modal: true,
+			buttons: {
+				"Add image": function() {
+					eventData = {
+						"type": "image",
+						"url": data.upload.links.original,
+						"size_x": endW,
+						"size_y": endH
+					};
+					var tt = player.track.data.uri;
+					var text = tt;
+					   					var ctrack = text.replace(/\bspotify:track:/, "");
+					addEventToCouch(ctrack, $('#image_add').position().left, $('#image_add').position().top, "linear", easein_easeouttime, $( "#slider-range-max" ).slider( "value" ), (pos/1000), eventData);
+					$( this ).dialog( "close" );
+					$('#save_image').hide("fast");
+					$('#image_add').fadeOut("fast");
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
 
-				   	$( "#slider-range-max" ).slider({
-				      range: "max",
-				      min: 1,
-				      max: 10,
-				      value: 2,
-				      slide: function( event, ui ) {
-				        $( "#amount" ).val( ui.value );
-				      }
-				    });
-				    $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
-      });
-	$('#save_image').show("fast");
-   		
+		$( "#slider-range-max" ).slider({
+			range: "max",
+			min: 1,
+			max: 10,
+			value: 2,
+			slide: function( event, ui ) {
+				$( "#amount" ).val( ui.value );
+			}
+		});
+		$( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
+	});
+$('#save_image').show("fast");
+
 
 /*
    	 $( "#dialog-confirm" ).dialog({
@@ -445,7 +445,7 @@ function addImage(data) {
     });
     $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
    	
-*/   		
+    */   		
 }
 
 
