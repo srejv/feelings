@@ -160,7 +160,7 @@ $(document).ready(function() {
 			resizable: false,
 			modal: true,
 			buttons: {
-				"Add image": function() {
+				"Add text": function() {
 					eventData = {
 						"type": "text",
 						"size": "20",
