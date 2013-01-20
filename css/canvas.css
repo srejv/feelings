@@ -50,11 +50,14 @@ body {
 
 
 #output {
+	text-align: left;
 	background-color:#fafafa;
 	border:1px solid #9a9898;
 	box-shadow: 0 0 10px #888;
 	width:100%;
 	min-height:90%;
+	position:relative;
+
 	overflow: hidden;
 }
 
@@ -101,3 +104,6 @@ h2 {
 	font-weight: bold;
 }
 
+.drawable {
+	position:absolute;
+}

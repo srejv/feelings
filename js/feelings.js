@@ -230,7 +230,7 @@ function timelineCallback() {
 }
 function addObject(obj) {
 	obj.renderobject.addToOutput(obj.id);
-	$('#'+obj.id).css('float','left').css('margin-left', obj.x + "%").css('margin-top', obj.y + "%").css('z-index', currentObj)
+	$('#'+obj.id).css('position','absolute').css('top', obj.x + "%").css('left', obj.y + "%").css('z-index', currentObj)
 	.fadeTo(0,0,"linear", function() {
 		$('#'+obj.id).fadeTo(obj.duration*1000, 1, "linear", function() {
 			setTimeout(function(){
