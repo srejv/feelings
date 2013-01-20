@@ -425,4 +425,4 @@ function addImage(data) {
 		$( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
 	});
 $('#save_image').show("fast");
-
+}
