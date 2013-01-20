@@ -345,14 +345,23 @@ function share(x, y){
 }
 
 function addImage(data) {
-	console.log(data);
+	var url = data.upload.links.original;
+	var width = 200;
+	var height = 200;
+	var pos_x = 40; //in percent 0 - 100
+	var pox_y = 20; //in percent 0 - 100
+	var easein_easeouttime = 1; //in seconds
+	var showtime = 2; //in seconds
+	var position = 15; //time to trigger, fetch from player position
+
 	eventData = {
 	       "type": "image",
 	       "url": data.upload.links.original,
-	       "size_x": 200,
-	       "size_y": 200
+	       "size_x": width,
+	       "size_y": height
    	};
-   		addEventToCouch(currentTrack, 0, 0, "linear", 1, 1, 10, eventData);
+   	
+   		addEventToCouch(currentTrack, pos_x, pos_y, "linear", easein_easeouttime, showtime, position, eventData);
 }
 
 
