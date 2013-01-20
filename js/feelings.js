@@ -160,9 +160,9 @@ $(document).ready(function() {
 	});	
 
 	$('#output').click(function(e) {
-		var xx = $(this).position().left;
-		var yy = $(this).position().top;
-
+		var xx = e.pageX - $(this).position().left;
+		var yy = e.pageY - $(this).position().top;
+			alert(yy);
 		//var yy = e.pageY -12; 
 		//var xx = e.pageX -11;
 		var twinwidth = $(this).width();
@@ -170,6 +170,7 @@ $(document).ready(function() {
 					
 		var  tperwid =   (xx  / twinwidth)  ;
 		var  tperhet =   (yy  / twinheight) ;
+
 
 		
 		  
