@@ -13,6 +13,9 @@ body {
 	display: none;
 }
 
+#canvas {
+	display: none;
+}
 #save_image {
 	display: none;
 }
