@@ -162,7 +162,7 @@ $(document).ready(function() {
 	$('#output').click(function(e) {
 		var xx = e.pageX - $(this).position().left;
 		var yy = e.pageY - $(this).position().top;
-			alert(yy);
+			//alert(yy);
 		//var yy = e.pageY -12; 
 		//var xx = e.pageX -11;
 		var twinwidth = $(this).width();
