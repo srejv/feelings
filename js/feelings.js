@@ -422,7 +422,7 @@ function addImage(data) {
 					
 					
 					var ctrack = text.replace(/\bspotify:track:/, "");
-					addEventToCouch(ctrack, perwid , perheg, "linear", easein_easeouttime, $( "#slider-range-max" ).slider( "value" ), (pos/1000), eventData);
+					addEventToCouch(ctrack, (perwid*100) , (perheg*100), "linear", easein_easeouttime, $( "#slider-range-max" ).slider( "value" ), (pos/1000), eventData);
 					
 					$( this ).dialog( "close" );
 					$('#save_image').hide("fast");
