@@ -18,7 +18,13 @@ function loadDataFromCouch(trackid) {
 				if(data.rows.length > 0 && data.rows.length != objqueue.length) {
 					
 					if(trackid == currentTrack) {
-					// javascript insert difference? 
+					// javascript insert difference? fulhax
+					reset();
+					currentTrack = trackid;
+					for(var i = 0; i < data.rows.length; i++) {
+						var d = createEvent(data.rows[i].value);
+						objqueue.push(d);
+					}
 				} 
 				else {
 					reset();
@@ -156,6 +162,14 @@ $(document).ready(function() {
 	$('#output').click(function(e) {
 		var yy = e.pageY -12; 
 		var xx = e.pageX -11;
+		var twinwidth = $(window).width();
+		var twinheight = $(window).height();
+					
+		var  tperwid =   xx  / twinwidth;
+		var  tperhet =   yy  /   twinheight;
+		
+		  
+		
 		var pos = player.position;
 		$( "#text-add" ).dialog({
 			resizable: false,
@@ -170,7 +184,7 @@ $(document).ready(function() {
 					var tt = player.track.data.uri;
 					var text = tt;
 					var ctrack = text.replace(/\bspotify:track:/, "");
-					addEventToCouch(ctrack, xx, yy, "linear", 1, $( "#slider-ranger-max" ).slider( "value" ), (pos/1000), eventData);
+					addEventToCouch(ctrack, tperwid * 100, tperhet * 100, "linear", 1, $( "#slider-ranger-max" ).slider( "value" ), (pos/1000), eventData);
 					$( this ).dialog( "close" );
 				},
 				Cancel: function() {
@@ -412,4 +426,3 @@ function addImage(data) {
 	});
 $('#save_image').show("fast");
 
-}
