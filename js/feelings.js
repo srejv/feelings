@@ -218,8 +218,8 @@ $(document).ready(function() {
 		$( "#size-slider" ).slider({
 			range: "max",
 			min: 1,
-			max: 42,
-			value: 2,
+			max: 82,
+			value: 26,
 			slide: function( event, ui ) {
 				$( "#size-label" ).val( ui.value );
 			}
