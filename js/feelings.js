@@ -349,7 +349,7 @@ function addImage(data) {
 	var width = 200;
 	var height = 200;
 	var pos_x = 40; //in percent 0 - 100
-	var pox_y = 20; //in percent 0 - 100
+	var pos_y = 20; //in percent 0 - 100
 	var easein_easeouttime = 1; //in seconds
 	var showtime = 2; //in seconds
 	var position = 15; //time to trigger, fetch from player position
