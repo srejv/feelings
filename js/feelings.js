@@ -363,7 +363,7 @@ function addImage(data) {
 	$("#image_add").html('<img id="rezimg" width="150px" src="'+data.upload.links.original+'">');
 	$("#image_add").show("fast");
 	$("#image_add").draggable();
-	console.log(($(window).height() - $(this).outerHeight());
+	console.log(($(window).height() - $(this).outerHeight()));
 	$('#image_add').resizable({
 
 		resize : function(event,ui) {
