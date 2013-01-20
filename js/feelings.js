@@ -381,16 +381,12 @@ function addImage(data) {
           var  perwid = $('#image_add').position().left  / winwidth;
           var  perheg = $('#image_add').position().top  / winheight;
           
-             console.log(perheg * 100);
-          
-          console.log(perwid * 100);
-          
           var x = $('#image_add').position().left;
           
 				
 					
-					   					var ctrack = text.replace(/\bspotify:track:/, "");
-	addEventToCouch(ctrack, perwid , perheg, "linear", easein_easeouttime, $( "#slider-range-max" ).slider( "value" ), (pos/1000), eventData);
+					var ctrack = text.replace(/\bspotify:track:/, "");
+					addEventToCouch(ctrack, perwid , perheg, "linear", easein_easeouttime, $( "#slider-range-max" ).slider( "value" ), (pos/1000), eventData);
 				
 					$( this ).dialog( "close" );
 					$('#save_image').hide("fast");
