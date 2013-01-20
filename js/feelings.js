@@ -222,8 +222,8 @@ $(document).ready(function() {
 		$( "#size-slider" ).slider({
 			range: "max",
 			min: 1,
-			max: 42,
-			value: 2,
+			max: 82,
+			value: 26,
 			slide: function( event, ui ) {
 				$( "#size-label" ).val( ui.value );
 			}
@@ -426,7 +426,7 @@ function addImage(data) {
 					
 					
 					var ctrack = text.replace(/\bspotify:track:/, "");
-					addEventToCouch(ctrack, perwid , perheg, "linear", easein_easeouttime, $( "#slider-range-max" ).slider( "value" ), (pos/1000), eventData);
+					addEventToCouch(ctrack, (perwid*100) , (perheg*100), "linear", easein_easeouttime, $( "#slider-range-max" ).slider( "value" ), (pos/1000), eventData);
 					
 					$( this ).dialog( "close" );
 					$('#save_image').hide("fast");
