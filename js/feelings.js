@@ -15,9 +15,9 @@ function loadDataFromCouch(trackid) {
 	$.getJSON(url,
 		function(data) {
 			// if(data.rows.length != objqueue) {  eller bara detta?
-			if(data.rows.length > 0 && data.rows.length != objqueue.length) {
-				
-				if(trackid == currentTrack) {
+				if(data.rows.length > 0 && data.rows.length != objqueue.length) {
+					
+					if(trackid == currentTrack) {
 					// javascript insert difference? 
 				} 
 				else {
@@ -101,9 +101,9 @@ models.player.observe(models.EVENT.CHANGE, function(e) {
 		current_p = Math.round(((duration_p / position_p) * 100 *0.85)*100)/100;
 		var tt = player.track.data.uri;
 		var text = tt;
-	    var track = text.replace(/\bspotify:track:/, "");
-	 	loadDataFromCouch(track);
-	 	correctQueue(pos / 1000);
+		   var track = text.replace(/\bspotify:track:/, "");
+		loadDataFromCouch(track);
+		correctQueue(pos / 1000);
 	}
 });
 
@@ -152,7 +152,7 @@ $(document).ready(function() {
 		
 	});	
 
-	 $('#output').click(function(e) {
+	$('#output').click(function(e) {
 		var yy = e.pageY -12; 
 		var xx = e.pageX -11;
 		var pos = player.position;
@@ -188,7 +188,7 @@ $(document).ready(function() {
 			}
 		});
 		$( "#amounte" ).val( $( "#slider-ranger-max" ).slider( "value" ) );
-	 });
+	});
 });
 
 function timelineCallback() {
@@ -375,19 +375,19 @@ function addImage(data) {
 					var tt = player.track.data.uri;
 					var text = tt;
 					
-					  var winwidth = $(window).width();
-          var winheight = $(window).height();
-          
-          var  perwid = $('#image_add').position().left  / winwidth;
-          var  perheg = $('#image_add').position().top  / winheight;
-          
-          var x = $('#image_add').position().left;
-          
-				
+					var winwidth = $(window).width();
+					var winheight = $(window).height();
+					
+					var  perwid = $('#image_add').position().left  / winwidth;
+					var  perheg = $('#image_add').position().top  / winheight;
+					
+					var x = $('#image_add').position().left;
+					
+					
 					
 					var ctrack = text.replace(/\bspotify:track:/, "");
 					addEventToCouch(ctrack, perwid , perheg, "linear", easein_easeouttime, $( "#slider-range-max" ).slider( "value" ), (pos/1000), eventData);
-				
+					
 					$( this ).dialog( "close" );
 					$('#save_image').hide("fast");
 					$('#image_add').fadeOut("fast");
@@ -409,45 +409,6 @@ function addImage(data) {
 		});
 		$( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
 	});
-	$('#save_image').show("fast");
+$('#save_image').show("fast");
 
 }
-
-
-/*
-
-           _     ___   ___  _  __     _  _____   __  ____   __         
-          | |   / _ \ / _ \| |/ /    / \|_   _| |  \/  \ \ / /         
-          | |  | | | | | | | ' /    / _ \ | |   | |\/| |\ V /          
-          | |__| |_| | |_| | . \   / ___ \| |   | |  | | | |           
-          |_____\___/ \___/|_|\_\ /_/   \_\_|   |_|  |_| |_|           
-                                                                       
-                     __        ___    _   _  ____                      
-                     \ \      / / \  | \ | |/ ___|                     
-                      \ \ /\ / / _ \ |  \| | |  _                      
-                       \ V  V / ___ \| |\  | |_| |                     
-                        \_/\_/_/   \_\_| \_|\____|                     
-                                                        .   .          
-                                                       /(  /(          
-                                                      /  \/  \         
-                                               /(/(  /    \___\        
-                                              /  \.-~         ~-._     
-                                        /^\.-~   __            /^~~~^\ 
-        ___                        /\.-~       /~  ~\         (o\   /o)
-       (_  `.                 /\.-~            |    |         |.     .|
-         `.  :           /\.-~  __             |    |         |\'. .'/|
-        ,' .'          .~    .-~  ~-.          |    |         |\\___//|
-      .' .'           /     :        \         (    |    _.-~`\ \) )/ /
-   .'  .'           .'      \         \         \   \_.-~      \_( (_/ 
- .'  .'           .'        '\         \        .\   \___        )/\)  
-(   (           .'            \         \   _.-~  \_  _ _\             
-`   '.        .'               \         \-~        `\\\\\\            
- `    '.    .'                  \        /           )/)/)/            
-  `     '..'                ___.~)      /`-.                           
-   `                      _-    /      /    `-.(\                      
-    `.                  _-/-._.-\     /-.        \                     
-      `-._            .'  \    ( \   /   `-._     :                    
-          '---..__---~     \   | /   \_     (____.'                    
-                            \__||     ~-.___                           
-      jro                    \/ /__________/>
-      
