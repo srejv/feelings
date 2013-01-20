@@ -191,7 +191,7 @@ $(document).ready(function() {
 		player.play(t);
 	});	
 
-	$('#slider').slider();
+	//$('#slider').slider();
 	
 	
 	$('#test_post').click(function () {
@@ -355,15 +355,94 @@ function addImage(data) {
 	var easein_easeouttime = 1; //in seconds
 	var showtime = 2; //in seconds
 	var position = 15; //time to trigger, fetch from player position
-
-	eventData = {
-	       "type": "image",
-	       "url": data.upload.links.original,
-	       "size_x": width,
-	       "size_y": height
-   	};
+	var endW;
+	var endH;
+	var pos = player.position;
    	
-   		addEventToCouch(currentTrack, pos_x, pos_y, "linear", easein_easeouttime, showtime, position, eventData);
+   	$("#appender").html('<img width="150px" src="'+data.upload.links.large_thumbnail+'">');
+   	$("#image_add").html('<img id="rezimg" width="150px" src="'+data.upload.links.original+'">');
+   	$("#image_add").show("fast");
+   	$("#image_add").draggable();
+   	$('#image_add').resizable({
+
+		resize : function(event,ui) {
+			endW = $(this).width();
+			endH = $(this).height();
+			st = $('#image_add').scrollTop();
+			sl = $('#image_add').scrollLeft();
+			$('#rezimg').attr('width',endW);
+			$('#rezimg').attr('height',endH);
+			//alert("width changed:"+ (sl) + " -- Height changed:" + (st));
+
+		}
+	});
+	$( "#save_image" )
+      .button()
+      .click(function( event ) {
+				      $( "#dialog-confirm" ).dialog({
+				      resizable: false,
+				      modal: true,
+				      buttons: {
+				        "Add image": function() {
+				        		eventData = {
+							       "type": "image",
+							       "url": data.upload.links.original,
+							       "size_x": endW,
+							       "size_y": endH
+						   	};
+				        	addEventToCouch(currentTrack, $('#image_add').position().left, $('#image_add').position().top, "linear", easein_easeouttime, $( "#slider-range-max" ).slider( "value" ), (pos/1000), eventData);
+				          $( this ).dialog( "close" );
+				          $('#save_image').hide("fast");
+				          $('#image_add').fadeOut("fast");
+				        },
+				        Cancel: function() {
+				          $( this ).dialog( "close" );
+				        }
+				      }
+				    });
+
+				   	$( "#slider-range-max" ).slider({
+				      range: "max",
+				      min: 1,
+				      max: 10,
+				      value: 2,
+				      slide: function( event, ui ) {
+				        $( "#amount" ).val( ui.value );
+				      }
+				    });
+				    $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
+      });
+	$('#save_image').show("fast");
+   		
+
+/*
+   	 $( "#dialog-confirm" ).dialog({
+      resizable: false,
+      modal: false,
+      buttons: {
+        "Add image": function() {
+
+        	addEventToCouch(currentTrack, pos_x, pos_y, "linear", easein_easeouttime, showtime, position, eventData);
+          $( this ).dialog( "close" );
+        },
+        Cancel: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+
+   	$( "#slider-range-max" ).slider({
+      range: "max",
+      min: 1,
+      max: 10,
+      value: 2,
+      slide: function( event, ui ) {
+        $( "#amount" ).val( ui.value );
+      }
+    });
+    $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
+   	
+*/   		
 }
 
 
