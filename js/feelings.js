@@ -185,6 +185,17 @@ $(document).ready(function() {
 					var text = tt;
 					var ctrack = text.replace(/\bspotify:track:/, "");
 					addEventToCouch(ctrack, tperwid * 100, tperhet * 100, "linear", 1, $( "#slider-ranger-max" ).slider( "value" ), (pos/1000), eventData);
+					//här.
+					var d = new Drawable();
+					d.x = tperwid*100; d.y = tperhet * 100; 
+					d.id = currentObj;
+					d.length = $( "#slider-ranger-max" ).slider( "value" );
+					d.easeType = "linear";
+					d.time = pos / 1000;
+					d.renderobject = new TextRenderObject(eventData.text);
+					d.renderobject.size = eventData.size;
+
+					objqueue.splice(currentObj,0, d);
 					$( this ).dialog( "close" );
 				},
 				Cancel: function() {
