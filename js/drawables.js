@@ -36,32 +36,32 @@
       jro                    \/ /__________/>
       
 
-*/
+      */
 
-output = $('#output');
+      output = $('#output');
 
-function Drawable() {
-	this.id = 'id'
-	this.x = 0;
-	this.y = 0;
-	this.easeType = 'linear';
-	this.duration = 1;
-	this.length = 1;
-	this.time = 0;
-	this.renderobject = null;
-}
+      function Drawable() {
+      	this.id = 'id'
+      	this.x = 0;
+      	this.y = 0;
+      	this.easeType = 'linear';
+      	this.duration = 1;
+      	this.length = 1;
+      	this.time = 0;
+      	this.renderobject = null;
+      }
 
-function TextRenderObject(txt) {
-	this.text = txt;
-	this.type = "text";
-	
-	this.addToOutput = function(pid) {
+      function TextRenderObject(txt) {
+      	this.text = txt;
+      	this.type = "text";
+      	
+      	this.addToOutput = function(pid) {
 		// Append div text tag with id
 		var item = document.createElement('div');
 		output.append($('<div></div>')
-				.text(this.text)
-        		.attr({ id : pid })
-        		.addClass("drawable"));
+			.text(this.text)
+			.attr({ id : pid })
+			.addClass("drawable"));
 	}
 }
 
@@ -75,10 +75,10 @@ function ImageRenderObject(imgurl) {
 		// Append div image tag with id
 		var item = document.createElement('div');
 		output.append($('<div></div>')
-        		.attr("id", pid)
-        		.addClass("drawable")
-        		.append($('<img/>')
-        		.attr({ src : this.src, width: this.size_x, height: this.size_y })));
+			.attr("id", pid)
+			.addClass("drawable")
+			.append($('<img/>')
+				.attr({ src : this.src, width: this.size_x, height: this.size_y })));
 	}
 }
 
@@ -94,7 +94,7 @@ function BackgroundRenderObject(color){
 			$("#color").fadeOut("slow", function() {
 				$("#color").css("background-color", color);
 				$("#color").fadeIn("slow");
-      		});
+			});
 		}
 	}
 }
