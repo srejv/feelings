@@ -178,7 +178,7 @@ $(document).ready(function() {
 				"Add text": function() {
 					eventData = {
 						"type": "text",
-						"size": "20",
+						"size": $("#size-slider").val(),
 						"text": $("#textinput").val()
 					};
 					var tt = player.track.data.uri;
@@ -197,12 +197,23 @@ $(document).ready(function() {
 			range: "max",
 			min: 1,
 			max: 10,
-			value: 2,
+			value: 12,
 			slide: function( event, ui ) {
 				$( "#amounte" ).val( ui.value );
 			}
 		});
 		$( "#amounte" ).val( $( "#slider-ranger-max" ).slider( "value" ) );
+
+		$( "#size-slider" ).slider({
+			range: "max",
+			min: 1,
+			max: 42,
+			value: 2,
+			slide: function( event, ui ) {
+				$( "#size-label" ).val( ui.value );
+			}
+		});
+		$( "#size-label" ).val( $( "#size-slider" ).slider( "value" ) );
 	});
 });
 
