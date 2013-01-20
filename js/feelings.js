@@ -160,13 +160,17 @@ $(document).ready(function() {
 	});	
 
 	$('#output').click(function(e) {
-		var yy = e.pageY -12; 
-		var xx = e.pageX -11;
-		var twinwidth = $(window).width();
-		var twinheight = $(window).height();
+		var xx = $(this).position().left;
+		var yy = $(this).position().top;
+
+		//var yy = e.pageY -12; 
+		//var xx = e.pageX -11;
+		var twinwidth = $(this).width();
+		var twinheight = $(this).height();
 					
-		var  tperwid =   xx  / twinwidth;
-		var  tperhet =   yy  /   twinheight;
+		var  tperwid =   (xx  / twinwidth)  ;
+		var  tperhet =   (yy  / twinheight) ;
+
 		
 		  
 		
