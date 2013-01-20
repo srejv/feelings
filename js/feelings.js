@@ -48,7 +48,8 @@ function createEvent(row) {
 		d.renderobject.size_x = row.event.size_x;
 		d.renderobject.size_y = row.event.size_y;
 	} else if(row.event.type == 'text') {
-		d.renderobject = new TextRenderObject(row.event.data);
+		d.renderobject = new TextRenderObject(row.event.text);
+		d.renderobject.size = row.event.size;
 	} else if(row.event.type == 'background') {
 		d.renderobject = new BackgroundRenderObject(row.event.color);
 	}
@@ -215,7 +216,7 @@ function timelineCallback() {
 }
 function addObject(obj) {
 	obj.renderobject.addToOutput(obj.id);
-	$('#'+obj.id).css('left', obj.x + "%").css('top', obj.y + "%")
+	$('#'+obj.id).css('float','left').css('margin-left', obj.x + "%").css('margin-top', obj.y + "%").css('z-index', currentObj)
 	.fadeTo(0,0,"linear", function() {
 		$('#'+obj.id).fadeTo(obj.duration*1000, 1, "linear", function() {
 			setTimeout(function(){

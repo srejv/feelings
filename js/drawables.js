@@ -62,9 +62,8 @@ function TextRenderObject(txt) {
 		// Append div text tag with id
 		var item = document.createElement('div');
 		output.append($('<div></div>')
-			.text(this.text)
 			.attr({ id : pid })
-			.addClass("drawable"));
+			.addClass("drawable").append($("<span></span>").text(this.text)));
 	}
 }
 
