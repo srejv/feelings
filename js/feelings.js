@@ -374,8 +374,24 @@ function addImage(data) {
 					};
 					var tt = player.track.data.uri;
 					var text = tt;
+					
+					  var winwidth = $(window).width();
+          var winheight = $(window).height();
+          
+          var  perwid = $('#image_add').position().left  / winwidth;
+          var  perheg = $('#image_add').position().top  / winheight;
+          
+             console.log(perheg * 100);
+          
+          console.log(perwid * 100);
+          
+          var x = $('#image_add').position().left;
+          
+				
+					
 					   					var ctrack = text.replace(/\bspotify:track:/, "");
-					addEventToCouch(ctrack, $('#image_add').position().left, $('#image_add').position().top, "linear", easein_easeouttime, $( "#slider-range-max" ).slider( "value" ), (pos/1000), eventData);
+	addEventToCouch(ctrack, perwid , perheg, "linear", easein_easeouttime, $( "#slider-range-max" ).slider( "value" ), (pos/1000), eventData);
+				
 					$( this ).dialog( "close" );
 					$('#save_image').hide("fast");
 					$('#image_add').fadeOut("fast");
@@ -439,5 +455,3 @@ function addImage(data) {
                             \__||     ~-.___                           
       jro                    \/ /__________/>
       
-
-*/
