@@ -278,8 +278,7 @@ function handleDrop(e) {
 	e.preventDefault();
 
 	switch (e.dataTransfer.types[0]) {
-		case "image/png":
-		case "image/jpg":
+		case "Files":
 		var ctx = document.getElementById('canvas').getContext('2d'), reader = new FileReader;
 
 		reader.onload = function(event) {
