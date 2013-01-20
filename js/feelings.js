@@ -390,7 +390,10 @@ function addImage(data) {
 							       "size_x": endW,
 							       "size_y": endH
 						   	};
-				        	addEventToCouch(currentTrack, $('#image_add').position().left, $('#image_add').position().top, "linear", easein_easeouttime, $( "#slider-range-max" ).slider( "value" ), (pos/1000), eventData);
+						   	var tt = player.track.data.uri;
+							var text = tt;
+	    					var ctrack = text.replace(/\bspotify:track:/, "");
+				        	addEventToCouch(ctrack, $('#image_add').position().left, $('#image_add').position().top, "linear", easein_easeouttime, $( "#slider-range-max" ).slider( "value" ), (pos/1000), eventData);
 				          $( this ).dialog( "close" );
 				          $('#save_image').hide("fast");
 				          $('#image_add').fadeOut("fast");
