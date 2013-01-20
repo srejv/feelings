@@ -91,7 +91,7 @@ models.player.observe(models.EVENT.CHANGE, function(e) {
 		var tt = player.track.data.uri;
 		var text = tt;
 		   currentTrack = text.replace(/\bspotify:track:/, "");
-		
+
 		loadDataFromCouch(currentTrack);
 		CorrectQueue(pos / 1000);
 	}
@@ -291,7 +291,7 @@ function handleDrop(e) {
 			share(img.width, img.height);
 			
 		};
-		
+
 		img.src = event.target.result;
 		
 		
@@ -358,11 +358,12 @@ function addImage(data) {
 	var endW;
 	var endH;
 	var pos = player.position;
-	
+
 	$("#appender").html('<img width="150px" src="'+data.upload.links.large_thumbnail+'">');
 	$("#image_add").html('<img id="rezimg" width="150px" src="'+data.upload.links.original+'">');
 	$("#image_add").show("fast");
 	$("#image_add").draggable();
+	console.log(($(window).height() - $(this).outerHeight());
 	$('#image_add').resizable({
 
 		resize : function(event,ui) {
@@ -415,37 +416,8 @@ function addImage(data) {
 		});
 		$( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
 	});
-$('#save_image').show("fast");
+	$('#save_image').show("fast");
 
-
-/*
-   	 $( "#dialog-confirm" ).dialog({
-      resizable: false,
-      modal: false,
-      buttons: {
-        "Add image": function() {
-
-        	addEventToCouch(currentTrack, pos_x, pos_y, "linear", easein_easeouttime, showtime, position, eventData);
-          $( this ).dialog( "close" );
-        },
-        Cancel: function() {
-          $( this ).dialog( "close" );
-        }
-      }
-    });
-
-   	$( "#slider-range-max" ).slider({
-      range: "max",
-      min: 1,
-      max: 10,
-      value: 2,
-      slide: function( event, ui ) {
-        $( "#amount" ).val( ui.value );
-      }
-    });
-    $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
-   	
-    */   		
 }
 
 
