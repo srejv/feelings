@@ -1,14 +1,14 @@
 {
 	"AppDescription": {
-		"en": "Feelings in REAL TIME"
+		"en": "Drop your doodles on songs!"
 	},
 	"AppIcon": {
 		"36x18": "tutorial.png"
 	},
 	"AppName": {
-		"en": "Feeling"
+		"en": "DoodleDrop"
 	},
-	"BundleIdentifier": "feeling",
+	"BundleIdentifier": "doodledrop",
 	"BundleType": "Application",
 	"BundleVersion": "0.1",
 	"AcceptedViewDropType": [
