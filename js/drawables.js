@@ -63,7 +63,7 @@ function TextRenderObject(txt) {
 		var item = document.createElement('div');
 		output.append($('<div></div>')
 			.attr({ id : pid })
-			.addClass("drawable").append($("<span></span>").text(this.text)));
+			.addClass("drawable").append($("<span></span>").css('font-size', this.size + "px").text(this.text)));
 	}
 }
 
