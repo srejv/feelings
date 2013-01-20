@@ -6,7 +6,7 @@ var player = models.player;
 function fixSpotifyLinks() {
 
 var tracks = [
-        '1Teo1zUru90rhX0RJVFUvF','74O6cjj9TiDMqSLnqTvIZr','5iynCtpEY7mx4ou54tHBPH',
+        '3UPPGZeSjNwxyJslnSTm1c','74O6cjj9TiDMqSLnqTvIZr','5iynCtpEY7mx4ou54tHBPH',
         '4tsHKDi5kr9O3tMPnKjEKx',
         '269TXy0nskEBvKXXAaK6tR',
         '0NiWsk5oZgF5wKEMe2CieT',
