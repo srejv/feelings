@@ -380,8 +380,7 @@ function addImage(data) {
 			sl = $('#image_add').scrollLeft();
 			$('#rezimg').attr('width',endW);
 			$('#rezimg').attr('height',endH);
-			//alert("width changed:"+ (sl) + " -- Height changed:" + (st));
-
+			
 		}
 	});
 	$( "#save_image" )
