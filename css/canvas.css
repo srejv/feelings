@@ -38,19 +38,23 @@ body {
 	z-index:2000;
 }
 
+#wrapper {
+    text-align: center;
+    width: 100%;
+}
 #pop, #use {
-	width:49%;
-	margin:auto;
-	text-align: center;
-	float:left;
+    display: inline-block;    
+    padding: 20px;   
 }
 
+
 .trackgrid {
-	display:box;
+	display:block;
 	text-align: center;
 }
 
 .gridtrack {
+	display:block;
 	float:left;
 	margin:6px;
 	border:1px solid #888;
